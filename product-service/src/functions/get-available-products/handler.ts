@@ -10,6 +10,7 @@ export const getAvailableProducts: APIGatewayProxyHandler = async () => {
 
   try {
     products = await getMockedAvailableProducts()
+    console.log(products);
   } catch (error) {
     return formatJSONBadResponse(500, error.message || 'Unexpected error.')
   }
