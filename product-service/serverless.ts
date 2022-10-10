@@ -9,7 +9,11 @@ import {
 const serverlessConfiguration: AWS = {
   service: 'product-service',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
+  plugins: [
+      'serverless-esbuild',
+      'serverless-auto-swagger',
+      'serverless-offline'
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
@@ -35,6 +39,11 @@ const serverlessConfiguration: AWS = {
     esbuild: {
       config: './esbuild.config.js',
     },
+    autoswagger: {
+      typefiles: ['./src/types/products.d.ts'],
+      basePath: '/dev',
+      host: 'yvlah8nu3j.execute-api.eu-west-1.amazonaws.com'
+    }
   },
 };
 

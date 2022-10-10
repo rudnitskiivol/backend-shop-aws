@@ -1,6 +1,6 @@
 import { getProductsList } from './handler';
 import { STATUS_CODES } from '@helpers/constants';
-import products from '@fakeDB/products.json'
+import products from '@fakeDB/products.json';
 
 describe('getProductsList test suite', () => {
     it('return list of products [200]', async () => {

@@ -6,15 +6,15 @@ import { isNotEmptyObject } from '@helpers/functions'
 import { STATUS_CODES } from '@helpers/constants'
 
 import { getMockedProductById } from '@fakeDB/index'
-import type { Product } from '@tstypes/product'
+import type { Product } from '@tstypes/products'
 
 export const getProductsById: APIGatewayProxyHandler = async (event) => {
-  let product: Product | null;
+  let product: Product | null
 
   try {
     if (event?.pathParameters?.id != null) {
       const productId = event.pathParameters.id
-      product = await getMockedProductById(productId) ?? null;
+      product = await getMockedProductById(productId) ?? null
 
       if (isNotEmptyObject(product)) {
         return formatJSONResponse({ ...product })

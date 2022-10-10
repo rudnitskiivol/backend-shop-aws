@@ -3,14 +3,14 @@ import { middyfy } from '@libs/lambda'
 
 import { getMockedAvailableProducts } from '@fakeDB/index'
 import { formatJSONResponse, formatJSONBadResponse } from '@libs/api-gateway'
-import type { Product } from '@tstypes/product'
+import { ProductList } from '@tstypes/products'
 
 export const getAvailableProducts: APIGatewayProxyHandler = async () => {
-  let products: Product[]
+  let products: ProductList
 
   try {
     products = await getMockedAvailableProducts()
-    console.log(products);
+    console.log(products)
   } catch (error) {
     return formatJSONBadResponse(500, error.message || 'Unexpected error.')
   }
