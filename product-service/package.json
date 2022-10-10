@@ -5,7 +5,9 @@
   "main": "serverless.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "sls deploy",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "npm run lint -- --fix",
+    "deploy": "npm run lint && sls deploy",
     "invoke": "serverless invoke local --function"
   },
   "engines": {
