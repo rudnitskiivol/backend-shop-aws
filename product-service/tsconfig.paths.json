@@ -2,8 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@fakeDB/*": ["src/fake-db/*"],
       "@functions/*": ["src/functions/*"],
-      "@libs/*": ["src/libs/*"]
+      "@libs/*": ["src/libs/*"],
+      "@tstypes/*": ["src/types/*"]
     }
   }
 }
