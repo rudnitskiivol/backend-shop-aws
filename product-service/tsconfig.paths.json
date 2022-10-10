@@ -5,7 +5,8 @@
       "@fakeDB/*": ["src/fake-db/*"],
       "@functions/*": ["src/functions/*"],
       "@libs/*": ["src/libs/*"],
-      "@tstypes/*": ["src/types/*"]
+      "@tstypes/*": ["src/types/*"],
+      "@helpers/*": ["src/helpers/*"]
     }
   }
 }

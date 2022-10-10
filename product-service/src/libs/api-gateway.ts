@@ -1,25 +1,30 @@
-const corsHeaders = {
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': '*'
-  }
-}
+import { CORS_HEADERS, ERROR_MESSAGES, STATUS_CODES } from "@helpers/constants";
+import { isEmptyObject } from "@helpers/functions";
 
 export const formatJSONResponse = (response: Record<string, unknown>) => {
   return {
-    statusCode: 200,
-    ...corsHeaders,
+    statusCode: STATUS_CODES.OK,
+    ...CORS_HEADERS,
     body: JSON.stringify(response)
   }
 }
 
 export const formatJSONBadResponse = (
-  statusCode: number = 500,
-  response: Record<string, unknown>
+  statusCode: number = STATUS_CODES.INTERNAL_SERVER_ERROR,
+  response: Record<string, unknown> = {}
 ) => {
+  
+  if (isEmptyObject(response)) {
+    if (ERROR_MESSAGES[statusCode]) {
+      response = { message: ERROR_MESSAGES[statusCode] };
+    } else {
+      response = { message: ERROR_MESSAGES[STATUS_CODES.INTERNAL_SERVER_ERROR]};
+    }
+  }
+
   return {
     statusCode,
-    ...corsHeaders,
+    ...CORS_HEADERS,
     body: JSON.stringify(response)
   }
 }

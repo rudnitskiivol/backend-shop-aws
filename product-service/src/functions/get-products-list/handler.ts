@@ -3,7 +3,7 @@ import { middyfy } from '@libs/lambda'
 
 import { getMockedProducts } from '@fakeDB/index'
 import { formatJSONResponse, formatJSONBadResponse } from '@libs/api-gateway'
-import type { Product } from "@tstypes/product"
+import type { Product } from '@tstypes/product'
 
 export const getProductsList: APIGatewayProxyHandler = async () => {
   let products: Product[]
