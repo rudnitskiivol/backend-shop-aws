@@ -1,5 +1,5 @@
-import { handlerPath } from '@libs/handler-resolver'
-import { STATUS_CODES } from '@helpers/constants'
+import { handlerPath } from '../../libs/handler-resolver';
+import { StatusCodes } from '../../helpers/constants';
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
@@ -10,15 +10,15 @@ export default {
         path: 'products',
         cors: true,
         responses: {
-          [STATUS_CODES.OK]: {
+          [StatusCodes.OK]: {
             description: 'Successful API response',
-            bodyType: 'ProductList'
+            bodyType: 'ProductList',
           },
-          [STATUS_CODES.INTERNAL_SERVER_ERROR]: {
-            description: 'Unexpected API error'
-          }
-        }
-      }
-    }
-  ]
-}
+          [StatusCodes.INTERNAL_SERVER_ERROR]: {
+            description: 'Unexpected API error',
+          },
+        },
+      },
+    },
+  ],
+};

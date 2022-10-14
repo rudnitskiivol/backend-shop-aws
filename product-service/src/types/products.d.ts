@@ -7,4 +7,4 @@ export interface Product {
   image: string
 }
 
-export type ProductList = Product[]
+export type ProductList = Product[];

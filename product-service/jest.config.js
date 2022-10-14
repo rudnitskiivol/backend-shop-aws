@@ -1,16 +1,5 @@
-const { pathsToModuleNameMapper } = require('ts-jest');
-const { compilerOptions } = require('./tsconfig.paths');
-
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-    preset: 'ts-jest',
-    setupFiles: ['dotenv/config'],
-    testEnvironment: 'node',
-    moduleNameMapper: pathsToModuleNameMapper(
-        compilerOptions.paths,
-        { prefix: '<rootDir>/' },
-    ),
-    testMatch: ['**/*.test.js'],
-    transform: {
-        "^.+\\.js$": "babel-jest",
-    },
+  preset: 'ts-jest',
+  testEnvironment: 'node',
 };

@@ -1,18 +1,18 @@
 import type { AWS } from '@serverless/typescript';
 
 import {
-  getAvailableProducts, 
-  getProductsById, 
-  getProductsList
-} from '@functions/index';
+  getAvailableProducts,
+  getProductsById,
+  getProductsList,
+} from './src/functions';
 
 const serverlessConfiguration: AWS = {
   service: 'product-service',
   frameworkVersion: '3',
   plugins: [
-      'serverless-esbuild',
-      'serverless-auto-swagger',
-      'serverless-offline'
+    'serverless-esbuild',
+    'serverless-auto-swagger',
+    'serverless-offline',
   ],
   provider: {
     name: 'aws',
@@ -29,21 +29,29 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { 
+  functions: {
     getProductsList,
-    getAvailableProducts, 
+    getAvailableProducts,
     getProductsById,
   },
   package: { individually: true },
   custom: {
     esbuild: {
-      config: './esbuild.config.js',
+      bundle: true,
+      minify: false,
+      sourcemap: true,
+      concurrency: 25,
+      exclude: ['aws-sdk'],
+      target: 'node14',
+      packagePath: './package.json',
+      packager: 'npm',
+      define: { 'require.resolve': undefined },
     },
     autoswagger: {
       typefiles: ['./src/types/products.d.ts'],
       basePath: '/dev',
-      host: 'yvlah8nu3j.execute-api.eu-west-1.amazonaws.com'
-    }
+      host: 'yvlah8nu3j.execute-api.eu-west-1.amazonaws.com',
+    },
   },
 };
 
