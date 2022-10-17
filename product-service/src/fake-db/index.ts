@@ -9,8 +9,3 @@ export const getMockedProductById = async (id: string): Promise<Product | undefi
   const productsList = await getMockedProducts();
   return productsList.find((product) => product.id === id);
 };
-
-export const getMockedAvailableProducts = async (): Promise<ProductList> => {
-  const productsList = await getMockedProducts();
-  return productsList.filter((product) => product.count > 0);
-};
