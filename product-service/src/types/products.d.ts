@@ -7,4 +7,12 @@ export interface Product {
   image: string
 }
 
+export interface ProductPOST {
+  count: number
+  description: string
+  price: number
+  title: string
+  image: string
+}
+
 export type ProductList = Product[];

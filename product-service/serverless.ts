@@ -5,6 +5,7 @@ import { slsResources } from './serverless-resources';
 import {
   getProductsById,
   getProductsList,
+  createProduct,
 } from './src/functions';
 
 const serverlessConfiguration: AWS = {
@@ -52,6 +53,7 @@ const serverlessConfiguration: AWS = {
   functions: {
     getProductsList,
     getProductsById,
+    createProduct,
   },
   resources: slsResources,
   package: { individually: true },
@@ -70,8 +72,8 @@ const serverlessConfiguration: AWS = {
     autoswagger: {
       typefiles: ['./src/types/products.d.ts'],
       basePath: '/dev',
-      host: 'yvlah8nu3j.execute-api.eu-west-1.amazonaws.com',
-      generateSwaggerOnDeploy: false,
+      host: 'e07e81v5pe.execute-api.eu-west-1.amazonaws.com',
+      generateSwaggerOnDeploy: true,
     },
   },
 };

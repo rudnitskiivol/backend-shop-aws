@@ -1,8 +1,14 @@
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Handler } from 'aws-lambda';
+import { FromSchema } from 'json-schema-to-ts';
 import { CORS_HEADERS, ERROR_MESSAGES, StatusCodes } from '../helpers/constants';
 import { isEmptyObject } from '../helpers/functions';
 
-export const formatJSONResponse = (response: string) => ({
-  statusCode: StatusCodes.OK,
+export type ValidatedAPIGatewayProxyEvent<S> = Omit<APIGatewayProxyEvent, 'body'> & { body: FromSchema<S> };
+export type ValidatedEventAPIGatewayProxyEvent<S> =
+    Handler<ValidatedAPIGatewayProxyEvent<S>, APIGatewayProxyResult>;
+
+export const formatJSONResponse = (response: string, statusCode: number = StatusCodes.OK) => ({
+  statusCode,
   ...CORS_HEADERS,
   body: response,
 });

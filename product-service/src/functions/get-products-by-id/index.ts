@@ -2,7 +2,7 @@ import { handlerPath } from '../../libs/handler-resolver';
 import { StatusCodes } from '../../helpers/constants';
 
 export default {
-  handler: `${handlerPath(__dirname)}/handler.main`,
+  handler: `${handlerPath(__dirname)}/handler.default`,
   events: [
     {
       http: {
