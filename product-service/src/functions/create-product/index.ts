@@ -1,4 +1,5 @@
 import { handlerPath } from '../../libs/handler-resolver';
+import schema from './schema';
 import { StatusCodes } from '../../helpers/constants';
 
 export default {
@@ -6,16 +7,24 @@ export default {
   events: [
     {
       http: {
-        method: 'get',
+        method: 'post',
         path: 'products',
-        cors: true,
+        request: {
+          schemas: {
+            'application/json': schema,
+          },
+        },
+        bodyType: 'ProductPOST',
         responses: {
-          [StatusCodes.OK]: {
+          [StatusCodes.CREATED]: {
             description: 'Successful API response',
             bodyType: 'ProductList',
           },
           [StatusCodes.INTERNAL_SERVER_ERROR]: {
             description: 'Unexpected API error',
+          },
+          [StatusCodes.BAD_REQUEST]: {
+            description: 'Incorrect product body values',
           },
         },
       },

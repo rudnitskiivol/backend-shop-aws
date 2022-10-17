@@ -6,7 +6,7 @@ import { formatJSONResponse, formatJSONBadResponse } from '../../libs/api-gatewa
 import { ProductList } from '../../types/products';
 import { ProductListDB, StockListDB } from '../../types/db-schemas';
 
-const getProductsList = async (event: APIGatewayProxyHandler) => {
+const getProductsList: APIGatewayProxyHandler = async (event) => {
   /* eslint-disable no-console */
   console.log('getProductsList: ', JSON.stringify(event, null, 2));
 
