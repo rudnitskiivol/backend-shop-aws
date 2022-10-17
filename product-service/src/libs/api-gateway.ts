@@ -1,10 +1,10 @@
 import { CORS_HEADERS, ERROR_MESSAGES, StatusCodes } from '../helpers/constants';
 import { isEmptyObject } from '../helpers/functions';
 
-export const formatJSONResponse = (response: Record<string, unknown>) => ({
+export const formatJSONResponse = (response: string) => ({
   statusCode: StatusCodes.OK,
   ...CORS_HEADERS,
-  body: JSON.stringify(response),
+  body: response,
 });
 
 export const formatJSONBadResponse = (

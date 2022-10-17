@@ -1,5 +1,7 @@
 import type { AWS } from '@serverless/typescript';
 
+import { slsResources } from './serverless-resources';
+
 import {
   getProductsById,
   getProductsList,
@@ -13,10 +15,12 @@ const serverlessConfiguration: AWS = {
     'serverless-auto-swagger',
     'serverless-offline',
   ],
+  useDotenv: true,
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
-    region: 'eu-west-1',
+    // @ts-ignore
+    region: '${env:AWS_REGION}',
     stage: 'dev',
     apiGateway: {
       minimumCompressionSize: 1024,
@@ -25,13 +29,31 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+      PRODUCTS_TABLE: '${env:PRODUCTS_TABLE}',
+      STOCKS_TABLE: '${env:STOCKS_TABLE}',
     },
+    iamRoleStatements: [
+      {
+        Effect: 'Allow',
+        Action: [
+          'dynamodb:Query',
+          'dynamodb:Scan',
+          'dynamodb:GetItem',
+          'dynamodb:PutItem'
+        ],
+        Resource: [
+          { 'Fn::GetAtt': ['productsTable', 'Arn' ] },
+          { 'Fn::GetAtt': ['stocksTable', 'Arn' ] }
+        ]
+      }
+    ]
   },
   // import the function via paths
   functions: {
     getProductsList,
     getProductsById,
   },
+  resources: slsResources,
   package: { individually: true },
   custom: {
     esbuild: {
@@ -49,6 +71,7 @@ const serverlessConfiguration: AWS = {
       typefiles: ['./src/types/products.d.ts'],
       basePath: '/dev',
       host: 'yvlah8nu3j.execute-api.eu-west-1.amazonaws.com',
+      generateSwaggerOnDeploy: false,
     },
   },
 };
