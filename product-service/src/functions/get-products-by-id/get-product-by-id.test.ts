@@ -1,22 +1,19 @@
-import { StatusCodes, ERROR_MESSAGES } from '../../helpers/constants';
-import { getProductsById } from './handler';
+import { ERROR_MESSAGES, StatusCodes } from '../../helpers/constants';
+import products from '../../services/fill-dynamodb/products.json';
+import getProductsById from './handler';
+import fillDb from '../../services/fill-dynamodb';
+
+beforeAll(async () => fillDb(products));
 
 const createEventObject = (id) => ({ pathParameters: { id } });
 
 describe('getProductsById test suite', () => {
   it('return existing product from fake db [200]', async () => {
-    const id = '7567ec4b-b10c-48c5-9345-fc73c48a80a0';
-    const testCaseEventObject = createEventObject(id);
+    const testCaseEventObject = createEventObject(products[0].id);
+
     // @ts-ignore
     const { body, statusCode } = await getProductsById(testCaseEventObject);
-    expect(body).toEqual(JSON.stringify({
-      count: 6,
-      description: 'Television Masterpiece Series',
-      id: '7567ec4b-b10c-48c5-9345-fc73c48a80a0',
-      price: 520,
-      title: 'Batman and Superman',
-      image: 'https://www.sideshow.com/storage/product-images/908013/knightmare-batman-and-superman_dc-comics_silo_sm.png',
-    }));
+    expect(JSON.parse(body)).toStrictEqual(products[0]);
     expect(statusCode).toBe(StatusCodes.OK);
   });
 
