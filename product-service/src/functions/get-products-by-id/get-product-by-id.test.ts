@@ -8,7 +8,7 @@ beforeAll(async () => fillDb(products));
 const createEventObject = (id) => ({ pathParameters: { id } });
 
 describe('getProductsById test suite', () => {
-  it('return existing product from fake db [200]', async () => {
+  it('return existing product from db [200]', async () => {
     const testCaseEventObject = createEventObject(products[0].id);
 
     // @ts-ignore
