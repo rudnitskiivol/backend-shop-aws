@@ -57,9 +57,9 @@ Config file is moved outside the serverless configuration.
 Creates one product in DB
 POST - https://e07e81v5pe.execute-api.eu-west-1.amazonaws.com/dev/products
 
-### GetAvailableProducts
+### GetProductsList
 
-Return only available products (these urs is used by front-end app)
+Returns full list of products
 GET - https://e07e81v5pe.execute-api.eu-west-1.amazonaws.com/dev/products
 
 ### GetProductsById
