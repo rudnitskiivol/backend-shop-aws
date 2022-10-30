@@ -54,4 +54,5 @@ Config file is moved outside the serverless configuration.
 Import csv file to the s3 bucket
 POST - https://6st2l9vcuj.execute-api.eu-west-1.amazonaws.com/dev/import
 
-### importFileParserTriggered on create s3 object event and read the csv file
+### importFileParser
+Triggered on create s3 object event and read the csv file
