@@ -31,6 +31,9 @@ const serverlessConfiguration: AWS = {
       AWS_BUCKET_NAME: '${env:AWS_BUCKET_NAME}',
       UPLOADED_PATH: '${env:UPLOADED_PATH}',
       PARSED_PATH: '${env:PARSED_PATH}',
+      AWS_SQS_URL: {
+        Ref: 'SQSQueue'
+      }
     },
     iamRoleStatements: [
       {
@@ -43,7 +46,13 @@ const serverlessConfiguration: AWS = {
         Resource: [
           'arn:aws:s3:::${env:AWS_BUCKET_NAME}/*',
         ]
-      },
+      },{
+        Effect: 'Allow',
+        Action: 'sqs:*',
+        Resource: {
+          'Fn::GetAtt': ['SQSQueue', 'Arn']
+        }
+      }
     ]
   },
   resources: {
@@ -69,6 +78,22 @@ const serverlessConfiguration: AWS = {
           },
         },
       },
+      SQSQueue: {
+        Type: 'AWS::SQS::Queue',
+        Properties: {
+          QueueName: 'catalogItemsQueue'
+        },
+      },
+    },
+    Outputs: {
+      SQSArn: {
+        Value: {
+          'Fn::GetAtt': ['SQSQueue', 'Arn']
+        },
+        Export: {
+          Name: 'SQSArn'
+        }
+      }
     },
   },
   // import the function via paths

@@ -1,3 +1,3 @@
-import {truncateDB} from "./index";
+import { truncateDB } from './index';
 
 truncateDB().then();

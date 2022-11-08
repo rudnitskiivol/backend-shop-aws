@@ -1,6 +1,6 @@
 import getProductsList from './handler';
 import products from '../../services/fill-dynamodb/products.json';
-import fillDb, {truncateDB} from '../../services/fill-dynamodb';
+import fillDb, { truncateDB } from '../../services/fill-dynamodb';
 import { StatusCodes } from '../../helpers/constants';
 
 describe('getProductsList test suite', () => {
@@ -14,5 +14,5 @@ describe('getProductsList test suite', () => {
     expect(statusCode).toBe(StatusCodes.OK);
   });
 
-  afterAll(async() => truncateDB())
+  afterAll(async () => truncateDB());
 });

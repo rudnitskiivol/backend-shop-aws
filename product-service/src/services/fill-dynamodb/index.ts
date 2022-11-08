@@ -1,6 +1,6 @@
 import dynamoDb from '../dynamodb-client';
 
-import {ProductDB, ProductListDB, StockDB} from '../../types/db-schemas';
+import { ProductDB, ProductListDB, StockDB } from '../../types/db-schemas';
 import { ProductList } from '../../types/products';
 
 require('dotenv').config();
