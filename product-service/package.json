@@ -7,6 +7,7 @@
     "test": "npx jest",
     "lint": "npx eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
+    "db:reset": "npm run db:truncate && npm run db:fill",
     "db:fill": "ts-node src/services/fill-dynamodb/import-script.ts",
     "db:truncate": "ts-node src/services/fill-dynamodb/truncate-script.ts",
     "deploy": "npm run lint:fix && npm run test && sls deploy",
