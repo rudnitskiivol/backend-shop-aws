@@ -4,10 +4,26 @@ import {
 import {
   CopyObjectCommand, DeleteObjectCommand, GetObjectCommand, S3Client,
 } from '@aws-sdk/client-s3';
+import { SQS } from 'aws-sdk';
+
 import csv from 'csv-parser';
+
+const sendProductToQueue = async (product) => {
+  const sqs = new SQS({ region: process.env.AWS_REGION_NAME });
+
+  const parsedProduct = JSON.stringify(product);
+
+  const message = {
+    QueueUrl: process.env.AWS_SQS_URL,
+    MessageBody: parsedProduct,
+  };
+
+  await sqs.sendMessage(message).promise();
+};
 
 const processCSV = async (fileKey: string) => {
   const s3Client = new S3Client({ region: process.env.AWS_REGION_NAME });
+
   const command = new GetObjectCommand({
     Bucket: process.env.AWS_BUCKET_NAME,
     Key: fileKey,
@@ -17,7 +33,7 @@ const processCSV = async (fileKey: string) => {
 
   await new Promise((resolve, reject) => {
     /* eslint-disable no-console */
-    file.Body.pipe(csv()).on('data', console.log).on('end', resolve).on('error', reject);
+    file.Body.pipe(csv()).on('data', sendProductToQueue).on('end', resolve).on('error', reject);
   });
 
   const copyCommand = new CopyObjectCommand({

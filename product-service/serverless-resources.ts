@@ -37,6 +37,25 @@ export const slsResources = {
                     WriteCapacityUnits: 1
                 }
             }
+        },
+        createProductTopic : {
+            Type: "AWS::SNS::Topic",
+            Properties: {
+                TopicName: "sqs-add-product-topic",
+            }
+        },
+        oneProductSubscription: {
+            Type: 'AWS::SNS::Subscription',
+            Properties: {
+                Protocol: 'email',
+                Endpoint: '${env:SNS_EMAIL}',
+                TopicArn: {
+                    Ref: 'createProductTopic'
+                },
+                FilterPolicy: {
+                    productsAmount: [{ numeric: ['=', 1] }]
+                }
+            }
         }
     }
 }

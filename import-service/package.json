@@ -19,6 +19,7 @@
     "@aws-sdk/s3-request-presigner": "^3.199.0",
     "@middy/core": "^3.4.0",
     "@middy/http-json-body-parser": "^3.4.0",
+    "aws-sdk": "^2.1248.0",
     "csv": "^6.2.1",
     "csv-parser": "^3.0.0",
     "dotenv": "^16.0.3",
