@@ -1,14 +1,17 @@
 import type { AWS } from '@serverless/typescript';
-
-import hello from '@functions/hello';
+import { basicAuthorizer } from "@functions/index";
 
 const serverlessConfiguration: AWS = {
-  service: 'authorization-service',
+  service: 'basic-authorization-service',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
+  plugins: [
+      'serverless-esbuild',
+      'serverless-dotenv-plugin'
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
+    region: 'eu-west-1',
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -19,7 +22,19 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { hello },
+  functions: { basicAuthorizer },
+  resources: {
+    Outputs: {
+      basicAuthorizerArn: {
+        Value: {
+          'Fn::GetAtt': ['BasicAuthorizerLambdaFunction', 'Arn']
+        },
+        Export: {
+          Name: 'basicAuthorizerArn'
+        }
+      }
+    },
+  },
   package: { individually: true },
   custom: {
     esbuild: {
